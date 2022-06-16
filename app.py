@@ -1,3 +1,4 @@
+from http import HTTPStatus
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 from werkzeug.exceptions import BadRequest
@@ -36,6 +37,10 @@ def get_bot_message():
     response = make_response(output_message)
     return response
 
+@app.route('/', methods=['DELETE'])
+def reset_conversation():
+    open('./chat_history_ids.txt', 'w').close()
+    return '', HTTPStatus.NO_CONTENT
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
