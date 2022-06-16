@@ -2,7 +2,7 @@ from http import HTTPStatus
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 from werkzeug.exceptions import BadRequest
-from flask import Flask, request, make_response
+from flask import Flask, request, make_response, jsonify
 import numpy as np
 
 app = Flask(__name__)
@@ -34,9 +34,10 @@ def get_bot_message():
         save_chat_history_ids = save_chat_history_ids.tolist()
         write_string = " ".join(str(id) for id in save_chat_history_ids[0])
         f.write(write_string)
-    response = make_response(output_message)
-    response.headers['Content-Type'] = 'application/json'
-    return response
+    data = {
+        "response": output_message
+    }
+    return jsonify(data)
 
 @app.route('/', methods=['DELETE'])
 def reset_conversation():
