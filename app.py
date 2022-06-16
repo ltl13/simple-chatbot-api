@@ -35,6 +35,7 @@ def get_bot_message():
         write_string = " ".join(str(id) for id in save_chat_history_ids[0])
         f.write(write_string)
     response = make_response(output_message)
+    response.headers['Content-Type'] = 'application/json'
     return response
 
 @app.route('/', methods=['DELETE'])
