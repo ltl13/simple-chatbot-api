@@ -19,7 +19,7 @@ def get_bot_message():
     new_user_input_ids = tokenizer.encode(
         message + tokenizer.eos_token, return_tensors='pt')
     with open('./chat_history_ids.txt') as f:
-        chat_history_ids = f.read().split(' ')[-50:]
+        chat_history_ids = f.read().split(' ')[-20:]
         chat_history_ids = None if chat_history_ids == [''] else [int(id) for id in chat_history_ids]
     if chat_history_ids is not None:
         chat_history_ids = np.array([chat_history_ids])
