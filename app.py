@@ -35,7 +35,7 @@ def get_bot_message():
         write_string = " ".join(str(id) for id in save_chat_history_ids[0])
         f.write(write_string)
     data = {
-        "response": output_message
+        "message": output_message
     }
     return jsonify(data)
 
